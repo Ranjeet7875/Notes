@@ -1,0 +1,31 @@
+const rateLimitWindow = 60 * 1000;
+const maxRequests = 10;
+const ipStore = new Map();
+const rateLimiter = (req, res, next) => {
+  const ip = req.ip;
+  const currentTime = Date.now();
+
+  if (!ipStore.has(ip)) {
+    ipStore.set(ip, {
+      count: 1,
+      startTime: currentTime
+    });
+    return next();
+  }
+  const userData = ipStore.get(ip);
+  if (currentTime - userData.startTime > rateLimitWindow) {
+    userData.count = 1;
+    userData.startTime = currentTime;
+    return next();
+  }
+  if (userData.count >= maxRequests) {
+    return res.status(429).json({
+      success: false,
+      message: "Too many requests. we have to put time."
+    });
+  }
+  userData.count++;
+  next();
+};
+
+module.exports = rateLimiter;
