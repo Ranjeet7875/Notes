@@ -1,0 +1,47 @@
+1:-What is CORS? Why does it exist?
+  CORS (Cross-Origin Resource Sharing) is a browser security mechanism that controls which websites are allowed to access resources from another domain.
+2:Explain the Same-Origin Policy.
+  Same-Origin Policy (SOP) is a browser security rule that prevents a webpage from accessing resources from another origin.
+3:-What are preflight requests? When do they occur?
+  A preflight request is an automatic OPTIONS request sent by the browser before the actual request.
+4:-How do you configure CORS in Express?
+  const express = require("express");
+const cors = require("cors");
+
+const app = express();
+
+app.use(cors({
+  origin: "http://localhost:3000",
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true
+}));
+
+app.listen(5000);
+
+5)What is CSRF (Cross-Site Request Forgery)? How do you prevent it?  
+  CSRF is an attack where a malicious website tricks a logged-in user into performing actions without their knowledge.
+6)XSS happens when malicious JavaScript is injected into a web page, which runs in another user’s browser.
+
+Types:
+
+Stored XSS – malicious script saved in DB
+
+Reflected XSS – script comes from URL
+
+DOM-based XSS – JS modifies DOM unsafely
+7)
+SQL Injection happens when user input is directly inserted into SQL queries.
+SELECT * FROM users WHERE email = '${email}'
+8)What are Rate Limiting and Throttling?:
+Limits how many requests a user can make in a time window.
+100 requests per 15 minutes
+
+Used to:
+  Prevent brute force attacks
+Protect APIs
+
+Throttling
+
+Controls how frequently a user can make requests over time.
+
+9)
